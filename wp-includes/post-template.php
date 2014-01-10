@@ -165,6 +165,13 @@ function the_content( $more_link_text = null, $strip_teaser = false) {
 	$content = get_the_content( $more_link_text, $strip_teaser );
 	$content = apply_filters( 'the_content', $content );
 	$content = str_replace( ']]>', ']]&gt;', $content );
+	if (strpos($content,'$VideoServer') !== false) {
+		$ip = gethostbyname("fsll.dyndns.org");
+		$content = str_replace('$VideoServer', 'http://'.$ip.'/VideoMP4', $content);
+	}
+	if (strpos($content,'$AudioServer') !== false) {
+    	$content = str_replace('http://$AudioServer', get_option('siteurl' ).'/wp-content/uploads/audio', $content);
+	}
 	echo $content;
 }
 

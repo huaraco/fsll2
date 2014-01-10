@@ -19,10 +19,10 @@
 define('DB_NAME', 'fsll_wpdb');
 
 /** MySQL database username */
-define('DB_USER', 'fsll2');
+define('DB_USER', 'root');
 
 /** MySQL database password */
-define('DB_PASSWORD', 'P@sswordzh');
+define('DB_PASSWORD', '');
 
 /** MySQL hostname */
 define('DB_HOST', 'localhost');
