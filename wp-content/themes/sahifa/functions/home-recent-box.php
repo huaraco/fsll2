@@ -1,6 +1,5 @@
 <?php
 function get_home_recent( $cat_data ){
-
 	$exclude ='';
 	if( !empty( $cat_data['exclude'] ) )
 		$exclude = $cat_data['exclude'];
@@ -11,7 +10,7 @@ function get_home_recent( $cat_data ){
 	$pagination = $cat_data['pagi'];
 	$offset =  $cat_data['offset'];
 
-	$args = array ( 'posts_per_page' => $Posts , 'category__not_in' => $exclude , 'offset' => $offset, 'ignore_sticky_posts' => 1   );
+	$args = array ( 'posts_per_page' => $Posts , 'category__not_in' => $exclude , 'offset' => $offset, 'ignore_sticky_posts' => 1, 'post__not_in' => get_option( 'sticky_posts' )   );
 	if ( !empty( $pagination ) && $pagination == 'y' ) $args[ 'paged' ] = get_query_var('paged');
 	
 	$cat_query = new WP_Query( $args ); 
@@ -25,7 +24,7 @@ function get_home_recent( $cat_data ){
 			
 				<?php if($cat_query->have_posts()): ?>
 
-				<?php while ( $cat_query->have_posts() ) : $cat_query->the_post()?>
+				<?php while ( $cat_query->have_posts() ) : $cat_query->the_post(); ?>
 				<?php if( $display == 'blog' ): ?>
 					<article <?php tie_post_class('item-list'); ?>>
 						<h2 class="post-box-title"><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'tie' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
@@ -68,7 +67,7 @@ function get_home_recent( $cat_data ){
 						<h3 class="post-box-title"><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'tie' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a></h3>
 						<p class="post-meta">
 							<?php if( tie_get_option( 'box_meta_score' ) ) tie_get_score(); ?>
-							<?php if( tie_get_option( 'box_meta_date'  ) )  tie_get_time() ?>
+							<?php if( tie_get_option( 'box_meta_date'  ) ) tie_get_time() ?>
 						</p>
 					</div>
 				<?php endif; ?>

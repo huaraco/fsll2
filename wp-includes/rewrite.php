@@ -287,7 +287,8 @@ function _wp_filter_taxonomy_base( $base ) {
  */
 function url_to_postid($url) {
 	global $wp_rewrite;
-
+	echo $url;
+	exit();
 	$url = apply_filters('url_to_postid', $url);
 
 	// First, check to see if there is a 'p=N' or 'page_id=N' to match against
